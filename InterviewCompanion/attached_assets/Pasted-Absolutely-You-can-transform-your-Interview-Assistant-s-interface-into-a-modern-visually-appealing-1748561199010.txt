@@ -1,0 +1,213 @@
+Absolutely! You can transform your Interview Assistant’s interface into a modern, visually appealing tool inspired by the **Call Setup Mobile App UI Design** you referenced. While I can’t view the Dribbble image directly, such designs typically feature:
+
+- Soft gradients or subtle color backgrounds (often blue, purple, or teal hues)
+- Rounded cards and buttons
+- Clean, readable fonts
+- Subtle shadows for depth
+- Minimalist layout with plenty of white space
+
+Below is a ready-to-use HTML/CSS/JS template for your Replit project, inspired by modern mobile app UIs. You can further tweak the colors to match your favorite palette.
+
+---
+
+## index.html
+
+```html
+
+
+
+  
+  
+  Interview Assistant
+  
+
+
+  
+    
+      
+        Interview Assistant
+        Practice. Improve. Succeed.
+      
+      
+        
+        Ask
+      
+      
+      
+        Tell me about yourself
+        What are your strengths?
+        Why should we hire you?
+      
+      
+    
+  
+  
+
+
+```
+
+---
+
+## style.css
+
+```css
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7faff;
+  height: 100%;
+}
+
+.main-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7f7fd5 0%, #86a8e7 50%, #91eac9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+  padding: 36px 28px 28px 28px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b3b5b;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  color: #6c63ff;
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+  font-weight: 500;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 14px 12px;
+  border: 1.5px solid #ececec;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #f5f8ff;
+  outline: none;
+  transition: border 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #6c63ff;
+}
+
+button[type="submit"] {
+  padding: 0 22px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #6c63ff 0%, #48c6ef 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(76, 110, 245, 0.10);
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(90deg, #48c6ef 0%, #6c63ff 100%);
+}
+
+.answer-box {
+  margin: 18px 0 10px 0;
+  background: #f5f8ff;
+  border-radius: 16px;
+  min-height: 70px;
+  padding: 18px 14px;
+  font-size: 1.09rem;
+  color: #333;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.04);
+  text-align: left;
+  white-space: pre-line;
+}
+
+.sample-questions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sample-btn {
+  background: linear-gradient(90deg, #86a8e7 0%, #91eac9 100%);
+  color: #3b3b5b;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sample-btn:hover {
+  background: linear-gradient(90deg, #91eac9 0%, #86a8e7 100%);
+}
+```
+
+---
+
+## script.js
+
+```javascript
+// Handle manual question input
+document.getElementById('questionForm').onsubmit = async function(e) {
+  e.preventDefault();
+  const question = document.getElementById('questionInput').value.trim();
+  if (!question) return;
+  document.getElementById('answerBox').textContent = "Thinking...";
+  // Replace this with your actual API call to OpenAI or backend
+  // For demo, just echo the question
+  setTimeout(() => {
+    document.getElementById('answerBox').textContent = `AI Answer: (Your backend/API response goes here for "${question}")`;
+  }, 1200);
+  document.getElementById('questionInput').value = '';
+};
+
+// Handle sample question buttons
+document.querySelectorAll('.sample-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.getElementById('questionInput').value = btn.textContent;
+    document.getElementById('questionForm').dispatchEvent(new Event('submit'));
+  };
+});
+```
+
+---
+
+## How to Use
+
+- **Copy-paste** these files into your Replit project.
+- The interface will have a modern, gradient background, rounded white card, and stylish buttons.
+- You can further tweak the gradient colors in `.main-bg` and button styles to match your preferred palette.
+
+---
+
+**Let me know if you want to add icons, avatars, or further customizations!**  
+If you want to re-enable audio recording later, just let me know and I’ll show you how to integrate it seamlessly into this new design.
+
+---
+Answer from Perplexity: pplx.ai/share

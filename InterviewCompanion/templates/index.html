@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Assistant</title>
+    
+    <!-- Bootstrap CSS with Replit dark theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <header class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <div class="container">
+                        <span class="navbar-brand mb-0 h1">
+                            <i data-feather="headphones" class="me-2"></i>
+                            Interview Assistant
+                        </span>
+                        <div class="navbar-nav ms-auto">
+                            <span class="nav-link" id="connection-status">
+                                <i data-feather="wifi-off" class="me-1"></i>
+                                Connecting...
+                            </span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container mt-4">
+            <!-- Control Panel -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i data-feather="mic" class="me-2"></i>
+                                Audio Controls
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex gap-3 align-items-center">
+                                <button id="start-btn" class="btn btn-success" disabled>
+                                    <i data-feather="play" class="me-2"></i>
+                                    Start Transcription
+                                </button>
+                                <button id="stop-btn" class="btn btn-danger" disabled>
+                                    <i data-feather="stop" class="me-2"></i>
+                                    Stop Transcription
+                                </button>
+                                <div id="status-indicator" class="d-flex align-items-center">
+                                    <span class="badge bg-secondary">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="row">
+                <!-- Transcription Panel -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i data-feather="type" class="me-2"></i>
+                                Live Transcription
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="transcription-area" class="transcription-area mb-3">
+                                <p class="text-muted text-center py-4">
+                                    Click "Start Transcription" to begin listening...
+                                </p>
+                            </div>
+                            
+                            <!-- Manual Question Input -->
+                            <div class="manual-question-section">
+                                <label for="manual-question" class="form-label">Manual Question:</label>
+                                <div class="input-group">
+                                    <textarea 
+                                        id="manual-question" 
+                                        class="form-control" 
+                                        rows="2" 
+                                        placeholder="Type a question manually or use voice transcription..."
+                                    ></textarea>
+                                    <button id="send-question-btn" class="btn btn-primary" type="button">
+                                        <i data-feather="send" class="me-1"></i>
+                                        Get Answer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answers Panel -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i data-feather="message-square" class="me-2"></i>
+                                AI Answers
+                            </h5>
+                            <button id="clear-answers-btn" class="btn btn-sm btn-outline-secondary">
+                                <i data-feather="trash-2" class="me-1"></i>
+                                Clear
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="answers-area" class="answers-area">
+                                <p class="text-muted text-center py-4">
+                                    AI-generated answers will appear here...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Detection Alert -->
+            <div class="row">
+                <div class="col-12">
+                    <div id="question-alert" class="alert alert-info d-none" role="alert">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <i data-feather="help-circle" class="me-2"></i>
+                                <strong>Question Detected:</strong> 
+                                <span id="detected-question"></span>
+                            </div>
+                            <div>
+                                <button id="auto-answer-btn" class="btn btn-sm btn-primary me-2">
+                                    Get Answer
+                                </button>
+                                <button id="dismiss-alert-btn" class="btn btn-sm btn-outline-secondary">
+                                    Dismiss
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+    <script>
+        // Initialize Feather icons
+        feather.replace();
+    </script>
+</body>
+</html>

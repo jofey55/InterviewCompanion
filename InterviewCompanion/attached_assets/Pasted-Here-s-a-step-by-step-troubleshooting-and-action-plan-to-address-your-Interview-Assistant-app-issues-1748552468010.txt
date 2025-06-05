@@ -1,0 +1,100 @@
+Here’s a step-by-step troubleshooting and action plan to address your Interview Assistant app issues:
+
+---
+
+## 1. **Interface Not Responding / Stuck on "Connecting"**
+
+**Possible Causes:**
+- API key misconfiguration or invalid key
+- Network issues or CORS errors
+- Backend API endpoint misconfigured
+- Frontend not handling API errors gracefully
+
+**What to Check & Fix:**
+- **API Key:** Double-check that your OpenAI API key is valid, active, and not rate-limited or expired.
+- **Network Requests:** Open your browser’s developer console (F12 or right-click → Inspect → Network tab) and look for failed requests or errors.
+- **API Endpoint:** Ensure your frontend is sending requests to the correct API endpoint (e.g., https://api.openai.com/v1/chat/completions).
+- **Error Handling:** Make sure your frontend displays user-friendly error messages if the API call fails, rather than just “connecting”.
+
+---
+
+## 2. **Question Input Not Getting Answers**
+
+**Possible Causes:**
+- API call not being made (JavaScript error, form not submitting)
+- API call returns an error (invalid payload, missing headers)
+- Response not being parsed or rendered
+
+**What to Check & Fix:**
+- **Console Errors:** Check the browser console for JavaScript errors.
+- **API Request:** Use the Network tab to see if the request is sent when you submit a question. If not, debug the form submission handler.
+- **API Response:** If the request is sent but the response is empty or an error, inspect the response for clues.
+- **Rendering:** Ensure the code that displays the AI answer is being triggered and is not hidden by a CSS/layout issue.
+
+---
+
+## 3. **Audio Recording / Listening Not Working**
+
+**Possible Causes:**
+- Browser permissions not granted for microphone
+- JavaScript errors in audio capture code
+- Incompatible audio library or missing polyfills
+- Backend not set up to handle audio input
+
+**What to Check & Fix:**
+- **Permissions:** Make sure the browser prompts for microphone access and that you grant it.
+- **Console Errors:** Look for errors related to `getUserMedia` or your audio library.
+- **Library Compatibility:** If you’re using a third-party audio recording library, check if it’s compatible with your framework and browser versions.
+- **API for Speech-to-Text:** If you want to use Google’s Speech-to-Text, you can use [Google Cloud Speech-to-Text API](https://cloud.google.com/speech-to-text). You’ll need to:
+    - Set up a Google Cloud account and enable the API
+    - Get an API key or service account credentials
+    - Send audio data to Google’s API and receive transcribed text
+    - Pass the transcribed text to your Interview Assistant as the question
+
+---
+
+## 4. **General Debugging Checklist**
+
+- **Reload the App:** Sometimes a hard refresh (Ctrl+Shift+R) clears cached errors.
+- **Test API Key:** Try a simple curl or Postman request to OpenAI’s API with your key to confirm it works.
+- **Check Console & Network Tab:** These will give you the most direct clues about what’s failing.
+- **Fallback to Text Input:** Ensure the basic text Q&A loop works before adding audio features.
+
+---
+
+## 5. **Sample Implementation for Audio-to-Text (Google API)**
+
+If you want to add Google Speech-to-Text, here’s a high-level flow:
+
+1. **Record audio** in the browser using `getUserMedia` and the Web Audio API or a library like [Recorder.js](https://github.com/mattdiamond/Recorderjs).
+2. **Send the audio blob** to your backend server.
+3. **Backend** sends audio to Google Speech-to-Text API and receives the transcription.
+4. **Backend** sends the transcribed text back to the frontend.
+5. **Frontend** uses the transcribed text as the interview question.
+
+---
+
+## 6. **Action Steps**
+
+1. **Check API key and endpoint configuration**
+2. **Open browser dev tools and look for errors**
+3. **Test basic text Q&A functionality**
+4. **Fix audio library issues or consider integrating Google Speech-to-Text API**
+5. **Improve error handling for a better user experience**
+
+---
+
+### If you share:
+- Error messages from the console
+- Network request/response details
+- Snippets of your frontend code
+
+I can give you even more targeted advice and code samples!
+
+---
+
+**Summary:**  
+Your app is close, but likely has API or JavaScript errors blocking functionality. Start by debugging text Q&A, then address audio. Consider Google Speech-to-Text for robust audio input, but get the basics working first!
+
+---
+Answer from Perplexity: pplx.ai/share

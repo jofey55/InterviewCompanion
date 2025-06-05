@@ -1,0 +1,111 @@
+Based on your description and the current environment, here’s a focused troubleshooting and action checklist to resolve the “No microphone found” error—even when your microphones work in other apps:
+
+---
+
+## 1. **Browser Permissions and Selection**
+
+- **Check Browser Permissions:**  
+  - When you first try to record, your browser should prompt for microphone access.  
+  - If you accidentally denied it, click the lock or camera/microphone icon in your browser’s address bar and set it to “Allow” for your site, then refresh the page[5][6].
+
+- **Choose the Correct Microphone:**  
+  - If you have multiple microphones, your browser may default to the wrong one.  
+  - Go to your browser’s microphone settings (e.g., `chrome://settings/content/microphone` in Chrome) and select your preferred device as the default[6].
+
+---
+
+## 2. **Operating System Settings**
+
+- **Check OS Input Devices:**  
+  - On Windows, right-click the sound icon → Sounds → Recording tab.  
+  - Ensure your desired microphone is enabled and set as default[1].  
+  - Disable any unused microphones to avoid conflicts.
+
+- **Device Manager:**  
+  - Open Device Manager, expand “Audio inputs and outputs,” and check that your microphones are listed and enabled[1].
+
+---
+
+## 3. **App and Code Troubleshooting**
+
+- **Microphone Permissions in JS:**  
+  - Make sure your code requests permissions like this:
+    ```javascript
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    ```
+  - If you get a “No microphone found” error, catch and log the actual error object for more detail.
+
+- **Browser Compatibility:**  
+  - Ensure you’re using a supported, up-to-date browser (Chrome, Edge, Firefox, Safari)[5].
+
+- **HTTPS Requirement:**  
+  - Microphone access only works on HTTPS or localhost[5].
+
+---
+
+## 4. **Common Causes of “No Microphone Found” Error**
+
+- Microphone permissions not enabled in browser or OS[5]
+- Microphone is muted, disabled, or not set as default[5]
+- Security software or browser extensions blocking access[5]
+- Browser cache/cookie interference—try clearing cache or using an incognito window[5]
+- Outdated browser or unsupported device[5]
+- Faulty or disconnected microphone (not your case, but always worth checking)[5]
+
+---
+
+## 5. **If You’re Still Stuck**
+
+- **Test on a Different Browser or Device:**  
+  - This can help isolate if the issue is browser-specific[8].
+- **Check JavaScript Console:**  
+  - Look for errors or permission denials and share the exact message for targeted help.
+- **Try a Minimal Example:**  
+  - Use a site like [https://webaudiodemos.appspot.com/AudioRecorder/index.html](https://webaudiodemos.appspot.com/AudioRecorder/index.html) to see if browser audio recording works outside your app.
+
+---
+
+## 6. **Sample Error-Handling Code**
+
+Add this to your JS to get more detailed error messages:
+
+```javascript
+navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(stream => {
+    // Success: microphone is accessible
+  })
+  .catch(err => {
+    alert("Microphone error: " + err.name + " - " + err.message);
+    console.error(err);
+  });
+```
+
+---
+
+## Summary Table
+
+| Step                               | What to Do                                               |
+|-------------------------------------|----------------------------------------------------------|
+| Browser Permissions                 | Allow mic access; select correct device in settings      |
+| OS Settings                        | Set default mic, disable unused ones                     |
+| HTTPS                              | Ensure site is served over HTTPS or localhost            |
+| Code/Error Handling                 | Log actual error messages for more detail                |
+| Try Different Browser/Device        | Isolate if browser-specific                             |
+| Clear Cache/Incognito               | Rule out browser cache/cookie issues                     |
+
+---
+
+**Once you verify permissions and device settings, and ensure your browser and code are correct, the tool should detect and use your microphones. If you still get the error, share the exact error message from the JavaScript console for further help.**
+
+Citations:
+[1] https://answers.microsoft.com/en-us/windows/forum/all/multiple-microphone-devices-and-echo-on-system/a9b765f9-7556-45df-ae1c-cfefc6c78f49
+[2] https://www.reddit.com/r/obs/comments/14bya17/multiple_microphone_issue/
+[3] https://stackoverflow.com/questions/34842138/multiple-mic-inputs-in-browser
+[4] https://obsproject.com/forum/threads/adjustment-of-two-studio-microphones.112539/
+[5] https://support.emmersion.ai/support/solutions/articles/60000703290-common-reasons-for-an-audio-error-message
+[6] https://support.loom.com/hc/en-us/articles/360003952198-How-to-troubleshoot-microphone-issues-in-your-Chrome-extension-recording
+[7] https://paul.kinlan.me/screen-recorderrecording-microphone-and-the-desktop-audio-at-the-same-time/
+[8] https://support.google.com/chrome/thread/28288807/microphone-not-working-only-in-chrome
+
+---
+Answer from Perplexity: pplx.ai/share

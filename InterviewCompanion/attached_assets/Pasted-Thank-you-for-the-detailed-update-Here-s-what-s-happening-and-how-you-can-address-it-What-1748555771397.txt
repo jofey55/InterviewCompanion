@@ -1,0 +1,107 @@
+Thank you for the detailed update! Here’s what’s happening and how you can address it:
+
+---
+
+## What’s Working
+
+- **Manual question input** and **AI answer generation** are fully functional.
+- The app is stable and the core features are live.
+
+---
+
+## What’s Missing
+
+- **Audio recording ("listening")** is not yet available in the interface, even though the backend/library compatibility issues have been resolved.
+
+---
+
+## Why Is This Happening?
+
+- The developer has fixed audio compatibility issues at the code/library level, but the **user interface (UI) does not yet include visible controls** (like a "Start Recording" button) for recording audio.
+- Audio recording is listed as **optional** and hasn’t been integrated into the visible UI.
+
+---
+
+## What You Should Do
+
+### 1. **Confirm with the Developer/Agent**
+Let them know you want browser-based audio recording as a visible, interactive feature.  
+You can say:  
+> “Please add a visible ‘Start Recording’ button so I can record and transcribe questions via microphone in the browser.”
+
+### 2. **If You’re Editing the Code Yourself**
+
+Add the following to your HTML (where you want the controls to appear):
+```html
+🎤 Start Recording
+Stop Recording
+
+
+```
+
+And add this JavaScript to enable recording:
+```javascript
+let mediaRecorder;
+let audioChunks = [];
+
+const startBtn = document.getElementById('startRecording');
+const stopBtn = document.getElementById('stopRecording');
+const status = document.getElementById('recordingStatus');
+const audioPlayback = document.getElementById('audioPlayback');
+
+startBtn.onclick = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+    status.textContent = "Recording...";
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+    mediaRecorder.onstop = () => {
+      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+      audioPlayback.src = URL.createObjectURL(audioBlob);
+      audioPlayback.style.display = 'block';
+      status.textContent = "Recording stopped. You can play your recording.";
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      // Optionally: send audioBlob to backend for transcription
+    };
+    mediaRecorder.start();
+  } catch (err) {
+    status.textContent = "Microphone access denied or error occurred.";
+    console.error(err);
+  }
+};
+
+stopBtn.onclick = () => {
+  if (mediaRecorder && mediaRecorder.state !== "inactive") {
+    mediaRecorder.stop();
+  }
+};
+```
+
+---
+
+## Summary Table
+
+| Feature                     | Status         | Action Needed                                  |
+|-----------------------------|---------------|------------------------------------------------|
+| Manual Q&A                  | Working       | None                                           |
+| AI-powered answers          | Working       | None                                           |
+| Audio recording (UI button) | Not visible   | Needs to be added to the interface             |
+| Audio library compatibility | Fixed         | Already done                                   |
+
+---
+
+## Next Steps
+
+- **Ask your developer/agent** to add the audio recording controls to the UI.
+- **If you have code access**, add the provided HTML and JavaScript to enable browser-based audio recording.
+
+---
+
+**Once the audio controls are visible, you’ll be able to record and (optionally) transcribe questions via your microphone. If you need help integrating the code, just ask!**
+
+---
+Answer from Perplexity: pplx.ai/share

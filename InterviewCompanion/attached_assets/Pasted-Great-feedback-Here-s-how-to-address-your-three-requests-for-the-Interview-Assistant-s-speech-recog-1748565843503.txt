@@ -1,0 +1,83 @@
+Great feedback! Here’s how to address your three requests for the Interview Assistant’s speech recognition and output display:
+
+---
+
+## 1. **Make Output Text Darker**
+
+Update your CSS to use a much darker color for both the transcript (dictation) and the AI answer:
+
+```css
+/* For the transcript and AI answer boxes */
+.transcript-box,
+.answer-box {
+  color: #181818; /* Nearly black, excellent contrast */
+  font-weight: 500;
+}
+```
+
+Or, if you have specific classes/IDs, just ensure their `color` property is set to a dark value (e.g., `#181818` or `#222`).
+
+---
+
+## 2. **Keep the Entire Transcript (Don’t Overwrite on Pause)**
+
+The default SpeechRecognition API behavior is to trigger `onresult` with only the latest phrase, especially if you pause. To accumulate all spoken text:
+
+**Update your JavaScript like this:**
+
+```javascript
+let transcript = '';
+
+recognition.onresult = (event) => {
+  let interimTranscript = '';
+  for (let i = event.resultIndex; i 
+
+```
+
+And in your CSS:
+
+```css
+.transcript-box,
+.answer-box {
+  color: #181818;
+  font-weight: 500;
+}
+```
+
+---
+
+## **Summary Table**
+
+| Issue/Request         | Solution                                                                 |
+|-----------------------|--------------------------------------------------------------------------|
+| Output text too light | Set `.transcript-box` and `.answer-box` color to `#181818` or `#222`    |
+| Transcript overwrites | Accumulate results in `transcript` variable in `onresult` handler       |
+| AI answer text color  | Use same dark color as transcript                                       |
+
+---
+
+## **Copy-Paste Example for Your JS**
+
+```javascript
+let transcript = '';
+recognition.onresult = (event) => {
+  let interimTranscript = '';
+  for (let i = event.resultIndex; i < event.results.length; i++) {
+    const result = event.results[i];
+    if (result.isFinal) {
+      transcript += result[0].transcript + ' ';
+    } else {
+      interimTranscript += result[0].transcript;
+    }
+  }
+  document.getElementById('transcriptBox').textContent = transcript + interimTranscript;
+  document.getElementById('questionInput').value = transcript + interimTranscript;
+};
+```
+
+---
+
+**Apply these changes and your tool will be even more user-friendly and accessible! If you want a full updated HTML/CSS/JS template, just let me know.**
+
+---
+Answer from Perplexity: pplx.ai/share
